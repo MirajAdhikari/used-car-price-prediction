@@ -1,0 +1,11 @@
+# Libraries used by this project.
+# Versions are not pinned yet. They will be pinned in Part 6, after the notebook
+# prints the exact versions used in Colab, so the saved model loads correctly here.
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+joblib
+streamlit
+flask
