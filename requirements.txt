@@ -1,11 +1,13 @@
-# Libraries used by this project.
-# Versions are not pinned yet. They will be pinned in Part 6, after the notebook
-# prints the exact versions used in Colab, so the saved model loads correctly here.
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-joblib
-streamlit
-flask
+# Libraries for the used car price prediction project.
+# These versions were checked to install on Python 3.14 (64-bit Windows).
+# scikit-learn must match exactly the version used in Colab to train the model
+# (notebook 05 installs this same version), or the saved model may not load.
+pandas==3.1.1
+numpy==2.5.5
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+matplotlib==3.11.2
+seaborn==0.13.2
+streamlit==1.67.0
+flask==3.1.3

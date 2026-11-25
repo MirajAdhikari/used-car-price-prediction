@@ -1,0 +1,52 @@
+{
+  "model": "Gradient Boosting",
+  "target": "selling price in rupees (trained on raw price)",
+  "best_settings": {
+    "l2_regularization": 4.337920697490942,
+    "learning_rate": 0.04030685101059539,
+    "max_iter": 509,
+    "max_leaf_nodes": 18,
+    "min_samples_leaf": 6
+  },
+  "cross_validation": {
+    "RMSE (lakh)": 2.1418434367384815,
+    "MAE (lakh)": 0.9740845384162833,
+    "R2": 0.9316183674178934,
+    "Median % error": 10.117530441642952
+  },
+  "test_all_cars": {
+    "RMSE (lakh)": 6.044404270637672,
+    "MAE (lakh)": 1.1127099624614059,
+    "R2": 0.7171746600590276,
+    "Median % error": 10.219169072220565
+  },
+  "test_without_cars_above_training_range": {
+    "RMSE (lakh)": 2.129880190882395,
+    "MAE (lakh)": 0.9806741435211647,
+    "R2": 0.9268217934228876,
+    "Median % error": 10.211565958278007
+  },
+  "highest_training_price_rupees": 14500000.0,
+  "numeric_features": [
+    "vehicle_age",
+    "km_driven",
+    "mileage",
+    "engine",
+    "max_power",
+    "seats"
+  ],
+  "categorical_features": [
+    "brand",
+    "model",
+    "seller_type",
+    "fuel_type",
+    "transmission_type"
+  ],
+  "training_rows": 12192,
+  "library_versions": {
+    "scikit-learn": "1.9.1",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "joblib": "1.6.0"
+  }
+}
