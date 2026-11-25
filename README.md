@@ -1,6 +1,8 @@
 # Used Car Price Prediction
 
-Predicts the selling price of a used car from its details (year, kilometers driven, fuel type, transmission, owner count, brand). Built as a Data Science course task: data cleaning, EDA, feature selection, model training and tuning, and a Streamlit web app. A Flask REST API is included as a bonus.
+Predicts the selling price of a used car from its details (age, kilometers driven, specifications, brand, model, fuel type, transmission, and seller type), and serves the prediction in a Streamlit web app. Built as a Data Science course task (Mindrisers).
+
+Dataset: CarDekho used car listings from Kaggle (Indian market, prices in rupees), 15,411 cars before cleaning.
 
 Status: work in progress.
 
@@ -13,23 +15,45 @@ used-car-price-prediction/
 ├── .gitignore
 ├── data/
 │   ├── raw/                 original Kaggle CSV (never edited)
-│   └── processed/           cleaned data
-├── notebooks/               main notebook (data cleaning, EDA, modeling)
-├── models/                  saved trained model
+│   └── processed/           cleaned data and the selected feature list
+├── notebooks/               numbered notebooks, one per step (see below)
+├── models/                  the saved model and facts about it
 ├── app/                     Streamlit app
-├── api/                     Flask REST API (bonus)
 ├── reports/figures/         saved charts
 └── docs/                    project documentation
 ```
 
-## Dataset
+## Notebooks
 
-CarDekho used car data from Kaggle (Indian market, prices in rupees). Details will be added after Part 2.
+Each step has its own notebook. Read and run them in order. Each one starts from the files saved by the step before it. They were written and run in Google Colab.
 
-## How to run
+1. `01_data_cleaning.ipynb`: load, explore, and clean the data; create a new feature; set up preprocessing.
+2. `02_eda.ipynb`: exploratory data analysis with charts (training data only).
+3. `03_feature_selection.ipynb`: choose which features the model uses.
+4. `04_model_development.ipynb`: compare Linear Regression, Random Forest, and Gradient Boosting on raw and log price.
+5. `05_tuning_and_final_model.ipynb`: tune the best models, choose the final one, test it, and save it.
 
-To be filled in as the project is built.
+## Run the app
 
-## Results
+You need Python 3.14 (the versions in `requirements.txt` were checked on 64-bit Windows with Python 3.14). Open a terminal in the project folder and run:
 
-To be filled in after model evaluation.
+```
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+streamlit run app/streamlit_app.py
+```
+
+The app opens in your browser at http://localhost:8501. If Streamlit asks for an email address the first time, press Enter to skip it. To stop the app, press Ctrl+C in the terminal.
+
+Notes:
+
+- On Mac or Linux, activate the environment with `source .venv/bin/activate` instead.
+- If PowerShell refuses to run `Activate.ps1`, run `Set-ExecutionPolicy -Scope Process Bypass` first, then try again.
+- The model was saved with scikit-learn 1.9.1, and the app checks that this exact version is installed. `requirements.txt` takes care of it.
+
+## About the model
+
+The final model is a tuned Gradient Boosting model trained on the raw price. In cross-validation on the training data, half of its predictions were within about 10% of the real price (RMSE about 2.1 lakh rupees, R2 0.93).
+
+It is reliable for ordinary cars and unreliable for very expensive luxury cars. Tree-based models cannot predict prices above the highest price they were trained on (145 lakh), so cars like a Ferrari or a Rolls-Royce are badly underpredicted. The app shows a warning for very expensive predictions, for car models with few examples in the data, and for unusual inputs.
